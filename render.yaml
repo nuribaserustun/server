@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: dews-occ-license
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: LICENSE_SECRET
+        generateValue: true      # Render otomatik güçlü bir değer üretir
+      - key: ADMIN_KEY
+        generateValue: true
+    disk:
+      name: license-db
+      mountPath: /opt/render/project/src
+      sizeGB: 1
